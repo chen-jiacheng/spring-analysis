@@ -1,4 +1,4 @@
-package com.chenjiacheng;
+package com.chenjiacheng.spring.beans;
 
 /**
  * Created by chenjiacheng on 2023/12/12 23:02
@@ -6,7 +6,7 @@ package com.chenjiacheng;
  * @author chenjiacheng
  * @since 1.0.0
  */
-public class Main {
+public class SpringAnalysisBeansApplication {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }
