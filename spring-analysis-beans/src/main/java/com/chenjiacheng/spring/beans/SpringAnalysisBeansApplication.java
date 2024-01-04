@@ -8,7 +8,6 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * Created by chenjiacheng on 2023/12/12 23:02
- * 配置文件查找顺序: 先test，再正常代码。
  * @author chenjiacheng
  * @since 1.0.0
  */
