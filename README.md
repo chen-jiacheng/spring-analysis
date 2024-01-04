@@ -16,3 +16,7 @@ spring framework source code analysis project.
 | style:    |代码风格的调整，不涉及逻辑修改    |
 | chore:    |构建过程或辅助工具的变动    |
 
+
+备忘：使用Conventional Commits规范
+网址：https://www.conventionalcommits.org/en/v1.0.0/
+
