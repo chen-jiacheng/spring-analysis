@@ -4,7 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="customBean" class="org.example.CustomBean" scope="singleton">
-        <property name="name" value="custom"/>
-    </bean>
+
+
 </beans>
