@@ -1,9 +1,10 @@
 package com.chenjiacheng.spring.beans;
 
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
 
 /**
  * Created by chenjiacheng on 2023/12/12 23:40
@@ -11,17 +12,26 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  * @author chenjiacheng
  * @since 1.0.0
  */
-// @RunWith(SpringRunner.class)
-// @ContextConfiguration("classpath:/spring-context.xml")
-@SpringJUnitConfig(locations = "classpath:/spring-context.xml")
 public class SpringAnalysisBeansApplicationTest {
 
+    @Test
+    public void loadBeanFactory(){
+        SpringAnalysisBeansApplication application = new SpringAnalysisBeansApplication();
 
-    @Autowired
-    private ApplicationContext ctx;
+        String path = "spring-beans.xml";
+        BeanFactory factory = application.loadBeanFactory(path);
+        Assert.assertNotNull(factory);
+    }
 
     @Test
-    public void contextLoaderTest() {
-        assert ctx != null;
+    public void loadApplicationContext(){
+        SpringAnalysisBeansApplication application = new SpringAnalysisBeansApplication();
+
+        String configLocation = "spring-beans.xml";
+        ApplicationContext ctx = application.loadApplicationContext(configLocation);
+        Assert.assertNotNull(ctx);
     }
+
+
+
 }
