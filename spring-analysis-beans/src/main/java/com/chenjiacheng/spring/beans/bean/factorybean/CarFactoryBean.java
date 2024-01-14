@@ -1,6 +1,5 @@
 package com.chenjiacheng.spring.beans.bean.factorybean;
 
-import com.chenjiacheng.spring.beans.bean.basic.Car;
 import org.springframework.beans.factory.FactoryBean;
 
 /**

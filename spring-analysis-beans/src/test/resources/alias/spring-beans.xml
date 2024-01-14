@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--  方式一：name属性，可配置多个。  -->
+    <bean id="computer" name="computer2,computer3" class="com.chenjiacheng.spring.beans.alias.Computer">
+        <property name="name" value="MacBook Pro"/>
+    </bean>
+    <!--  方式二：alias标签，一次仅能配置一个别名  -->
+    <alias name="computer" alias="computer-alias"/>
+
+</beans>

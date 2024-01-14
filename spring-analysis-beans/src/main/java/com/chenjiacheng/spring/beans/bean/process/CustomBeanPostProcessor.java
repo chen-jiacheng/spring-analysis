@@ -10,7 +10,6 @@ import java.lang.reflect.Proxy;
 
 public class CustomBeanPostProcessor implements BeanPostProcessor {
 
-    @Autowired
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

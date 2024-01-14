@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--  获取器注入  -->
+    <bean id="teacher" class="com.chenjiacheng.spring.beans.bean.overrides.lookup.Teacher"/>
+    <bean id="user" class="com.chenjiacheng.spring.beans.bean.overrides.lookup.User"/>
+
+    <bean id="getBeanTest" class="com.chenjiacheng.spring.beans.bean.overrides.lookup.GetBeanTest">
+        <lookup-method name="getBean" bean="user"/>
+    </bean>
+
+    <!--  方法替换  -->
+    <bean id="replacer" class="com.chenjiacheng.spring.beans.bean.overrides.replace.TestMethodReplacer"/>
+    <bean id="testChangeMethod" class="com.chenjiacheng.spring.beans.bean.overrides.replace.TestChangeMethod">
+        <replaced-method name="changeMe" replacer="replacer"/>
+    </bean>
+
+</beans>

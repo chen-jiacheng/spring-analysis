@@ -12,6 +12,7 @@
         <module>spring-analysis-beans</module>
         <module>spring-analysis-context</module>
         <module>spring-analysis-mvc</module>
+        <module>spring-analysis-aop</module>
     </modules>
 
     <properties>

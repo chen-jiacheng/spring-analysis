@@ -3,4 +3,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+    <bean id="car" class="com.chenjiacheng.spring.beans.bean.factorybean.CarFactoryBean">
+        <property name="carInfo" value="特斯拉,400,2999999"/>
+    </bean>
+
+
 </beans>
