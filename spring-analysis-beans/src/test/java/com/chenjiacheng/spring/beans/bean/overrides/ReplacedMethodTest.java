@@ -1,6 +1,5 @@
 package com.chenjiacheng.spring.beans.bean.overrides;
 
-import com.chenjiacheng.spring.beans.bean.overrides.lookup.GetBeanTest;
 import com.chenjiacheng.spring.beans.bean.overrides.replace.TestChangeMethod;
 import com.chenjiacheng.spring.beans.util.BeanFactoryUtil;
 import org.junit.Test;

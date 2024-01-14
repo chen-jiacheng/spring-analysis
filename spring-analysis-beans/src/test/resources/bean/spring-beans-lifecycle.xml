@@ -4,8 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="hello" class="com.chenjiacheng.spring.beans.bean.aware.Hello"/>
+    <bean id="hello" class="com.chenjiacheng.spring.beans.bean.lifecycle.Hello"/>
 
-    <bean id="customBeanFactoryAware"
-          class="com.chenjiacheng.spring.beans.bean.aware.CustomBeanFactoryAware"/>
 </beans>
