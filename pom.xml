@@ -13,6 +13,7 @@
         <module>spring-analysis-context</module>
         <module>spring-analysis-mvc</module>
         <module>spring-analysis-aop</module>
+        <module>spring-analysis-jdbc</module>
     </modules>
 
     <properties>
@@ -23,6 +24,7 @@
         <junit.version>4.13.2</junit.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <lombok.version>1.18.30</lombok.version>
+        <aspectj.version>1.9.7</aspectj.version>
     </properties>
 
     <dependencyManagement>
@@ -45,9 +47,20 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
             </dependency>
 
             <!--    spring commons      -->

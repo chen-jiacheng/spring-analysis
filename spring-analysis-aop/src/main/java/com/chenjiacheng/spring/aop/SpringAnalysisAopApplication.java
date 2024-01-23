@@ -1,5 +1,6 @@
 package com.chenjiacheng.spring.aop;
 
+import com.chenjiacheng.spring.aop.aop.TestBean;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -14,33 +15,13 @@ import org.springframework.core.io.ClassPathResource;
 public class SpringAnalysisAopApplication {
 
     public static void main(String[] args) {
-        SpringAnalysisAopApplication application = new SpringAnalysisAopApplication();
-
-        String path = "spring-beans.xml";
-        BeanFactory factory = application.loadBeanFactory(path);
-
-        String configLocation = "spring-beans.xml";
-        ApplicationContext ctx = application.loadApplicationContext(configLocation);
+        String path = "spring-aop.xml";
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(path);
+        TestBean bean = (TestBean)ctx.getBean("test");
+        bean.test();
     }
 
-    /***
-     * 加载bean工厂
-     * @param path 配置文件路径
-     * @return bean工厂
-     */
-    @SuppressWarnings("deprecation")
-    public BeanFactory loadBeanFactory(String path){
-        return new XmlBeanFactory(new ClassPathResource(path));
-    }
 
-    /***
-     * 加载应用上下文
-     * @param configLocation 配置文件路径
-     * @return 应用上下文
-     */
-    public ApplicationContext loadApplicationContext(String configLocation){
-        return new ClassPathXmlApplicationContext(configLocation);
-    }
 
 
 
