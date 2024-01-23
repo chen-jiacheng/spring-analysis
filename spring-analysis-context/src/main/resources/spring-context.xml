@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <!-- 开启注解支持 -->
-    <context:annotation-config/>
-
-    <!-- 扫描包中的注解 -->
-    <context:component-scan base-package="com.chenjiacheng.spring.context"/>
-
-    <!-- 定义bean -->
-    <bean id="application" class="com.chenjiacheng.spring.context.SpringAnalysisContextApplication">
-        <!-- 配置bean的属性 -->
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="customBean" class="com.chenjiacheng.spring.context.beans.CustomBean">
+        <constructor-arg name="name" value="spring-analysis-context"/>
     </bean>
 
-    <!-- 其他配置... -->
+<!--    <bean id="customEnvironmentAware1" class="com.chenjiacheng.spring.context.aware.CustomEnvironmentAware"/>-->
+<!--    <bean id="customEnvironmentAware2" class="com.chenjiacheng.spring.context.aware.CustomEnvironmentAware"/>-->
+
+    <bean id="customBeanFactoryPostProcessor1" class="com.chenjiacheng.spring.context.processor.CustomBeanFactoryPostProcessor"/>
+    <bean id="customBeanFactoryPostProcessor2" class="com.chenjiacheng.spring.context.processor.CustomBeanFactoryPostProcessor2"/>
+    <bean id="customApplicationContextInitializer" class="com.chenjiacheng.spring.context.init.CustomApplicationContextInitializer"/>
+    <bean id="testListener" class="com.chenjiacheng.spring.context.event.TestListener"/>
+    <bean id="customLifecycle" class="com.chenjiacheng.spring.context.lifecycle.CustomLifecycle"/>
+
 
 </beans>

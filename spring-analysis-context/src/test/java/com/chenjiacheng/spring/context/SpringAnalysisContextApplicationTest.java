@@ -1,9 +1,9 @@
 package com.chenjiacheng.spring.context;
 
+import com.chenjiacheng.spring.context.beans.CustomBean;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by chenjiacheng on 2023/12/12 23:45
@@ -11,16 +11,20 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  * @author chenjiacheng
  * @since 1.0.0
  */
-// @RunWith(SpringRunner.class)
-// @ContextConfiguration("classpath:/spring-context.xml")
-@SpringJUnitConfig(locations = "classpath:/spring-context.xml")
 public class SpringAnalysisContextApplicationTest {
 
-    @Autowired
-    private ApplicationContext ctx;
+    private static final String location = "spring-context.xml";
 
     @Test
     public void contextLoaderTest() {
-        assert ctx != null;
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(location);
+        System.out.println("ctx = " + ctx);
+
+        CustomBean customBean = (CustomBean) ctx.getBean("customBean");
+        System.out.println("customBean = " + customBean);
+
     }
+
+
+
 }
