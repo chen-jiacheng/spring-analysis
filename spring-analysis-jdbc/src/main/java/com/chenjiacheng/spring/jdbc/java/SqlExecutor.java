@@ -1,10 +1,11 @@
 package com.chenjiacheng.spring.jdbc.java;
 
+import com.google.common.base.CaseFormat;
+
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by chenjiacheng on 2024/1/26 00:40
@@ -34,59 +35,113 @@ public class SqlExecutor {
     }
 
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url,username,password);
+        return DriverManager.getConnection(url, username, password);
     }
 
-    public static <T> T selectOne(String sql,Class<T> clazz,Object...params) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException {
+    public static <T> List<T> select(String sql, Class<T> clazz, Object... params) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         Connection connection = getConnection();
 
         PreparedStatement statement = connection.prepareStatement(sql);
-        if(params!=null&&params.length>0){
+        if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {
                 Object param = params[i];
-                statement.setObject(i+1,param);
+                statement.setObject(i + 1, param);
             }
         }
 
         ResultSet rs = statement.executeQuery();
+        List<T> results = resolveResult(clazz, rs);
 
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
-            String columnName = metaData.getColumnName(i);
-            System.out.print(columnName+"\t\t");
-        }
-        System.out.println();
-        T result = clazz.newInstance();
-        while (rs.next()) {
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.print(rs.getObject(i)+"\t");
-                clazz.getField("").set(result,"");
-            }
-            System.out.println();
-        }
         rs.close();
         statement.close();
         connection.close();
 
-        return result;
-    }
-    public static int insert(String sql,Object...params){
-        return 0;
-    }
-    public static int update(String sql,Object...params){
-        return 0;
-    }
-    public static int delete(String sql,Object...params){
-        return 0;
+        return results;
     }
 
-    public static Object executor(String sql, Object...params) throws SQLException {
-        return null;
+    private static <T> List<T> resolveResult(Class<T> clazz, ResultSet result) throws SQLException, InstantiationException, IllegalAccessException {
+        // 映射: result -> map -> object
+        // 1. 映射: [下划线命名 => 驼峰命名]
+        Map<String, String> propertyMapping = new HashMap<>();
+
+        ResultSetMetaData metaData = result.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        for (int i = 1; i <= columnCount; i++) {
+            String columnName = metaData.getColumnName(i);
+            String fieldName = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnName);
+            propertyMapping.put(columnName, fieldName);
+        }
+
+        // 2. 映射: [驼峰命名 => 字段值]
+        List<Map<String, Object>> resultMappings = new ArrayList<>();
+        while (result.next()) {
+            Map<String, Object> resultMapping = new HashMap<>();
+            for (Map.Entry<String, String> entry : propertyMapping.entrySet()) {
+                String jdbcFieldName = entry.getKey();
+                String javaFieldName = entry.getValue();
+                Object object = result.getObject(jdbcFieldName);
+                resultMapping.put(javaFieldName, object);
+            }
+            resultMappings.add(resultMapping);
+        }
+
+        if (resultMappings.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<T> results = new ArrayList<>();
+        for (Map<String, Object> resultMapping : resultMappings) {
+            T instance = clazz.newInstance();
+            for (Map.Entry<String, Object> entry : resultMapping.entrySet()) {
+                String fieldName = entry.getKey();
+                Object fieldValue = entry.getValue();
+                try {
+                    Field field = clazz.getDeclaredField(fieldName);
+                    boolean accessible = field.isAccessible();
+                    field.setAccessible(true);
+                    field.set(instance, fieldValue);
+                    field.setAccessible(accessible);
+                } catch (NoSuchFieldException e) {
+                    System.out.println("e = " + e);
+                }
+            }
+            results.add(instance);
+        }
+        return results;
+    }
+
+    public static int insert(String sql, Object... params) throws SQLException {
+        return executeUpdate(sql, params);
+    }
+
+    public static int update(String sql, Object... params) throws SQLException {
+        return executeUpdate(sql, params);
+    }
+
+    public static int delete(String sql, Object... params) throws SQLException {
+        return executeUpdate(sql, params);
+    }
+
+
+    private static int executeUpdate(String sql, Object... params) throws SQLException {
+        Connection connection = getConnection();
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        if (params != null && params.length > 0) {
+            for (int i = 0, j = 1; i < params.length; i++, j++) {
+                Object param = params[i];
+                statement.setObject(j, param);
+            }
+        }
+        int changes = statement.executeUpdate();
+
+        statement.close();
+        connection.close();
+        return changes;
     }
 
     public static void main(String[] args) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
-        Object result = SqlExecutor.selectOne("select * from USER where username = ?;", Object.class,"Charlie Smith");
+        List<User> result = SqlExecutor.select("select * from USER;", User.class);
         System.out.println("result = " + result);
     }
 
