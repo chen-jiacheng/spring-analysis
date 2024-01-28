@@ -14,6 +14,7 @@
         <module>spring-analysis-mvc</module>
         <module>spring-analysis-aop</module>
         <module>spring-analysis-jdbc</module>
+        <module>spring-analysis-mybatis</module>
     </modules>
 
     <properties>
