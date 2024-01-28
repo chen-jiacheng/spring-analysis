@@ -31,6 +31,8 @@ public class JavaJdbcApplication {
         Connection connection = DriverManager.getConnection(
                 url, user, password);
 
+        // driver 只是驱动,提供连接\执行sql功能.
+
         // 数据库连接池，管理数据连接
 
         connection.setAutoCommit(false);
