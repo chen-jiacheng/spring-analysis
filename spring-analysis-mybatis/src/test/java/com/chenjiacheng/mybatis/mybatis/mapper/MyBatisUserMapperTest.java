@@ -10,19 +10,17 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by chenjiacheng on 2024/1/30 00:20
  *
  * @author chenjiacheng
  * @since 1.0.0
  */
-public class UserMapperTest {
+public class MyBatisUserMapperTest {
 
     private final static SqlSessionFactory sqlSessionFactory;
     static {
-        String resource = "mybatis-config.xml";
+        String resource = "mybatis/mybatis-config.xml";
         Reader reader = null;
         try {
             reader = Resources.getResourceAsReader(resource);
