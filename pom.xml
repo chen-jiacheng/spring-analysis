@@ -15,6 +15,7 @@
         <module>spring-analysis-aop</module>
         <module>spring-analysis-jdbc</module>
         <module>spring-analysis-mybatis</module>
+        <module>spring-analysis-tx</module>
     </modules>
 
     <properties>
